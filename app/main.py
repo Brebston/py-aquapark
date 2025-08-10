@@ -4,11 +4,11 @@ from typing import Any
 
 class IntegerRange:
     def __init__(self,
-                 min_value: int,
-                 max_value: int
+                 min_amount: int,
+                 max_amount: int
                  ) -> None:
-        self.min_value = min_value
-        self.max_value = max_value
+        self.min_amount = min_amount
+        self.max_amount = max_amount
 
     def __set_name__(self,
                      owner: type,
@@ -17,7 +17,7 @@ class IntegerRange:
         self.protected_name = "_" + name
 
     def __get__(self,
-                instance: "Visitor",
+                instance: "SlideLimitationValidator",
                 owner: type
                 ) -> Any:
         if instance is None:
@@ -25,14 +25,14 @@ class IntegerRange:
         return getattr(instance, self.protected_name)
 
     def __set__(self,
-                instance: "Visitor",
+                instance: "SlideLimitationValidator",
                 value: int
                 ) -> None:
         if not isinstance(value, int):
             raise TypeError("Value must be an integer")
-        if not range(self.min_value <= value <= self.max_value):
-            raise ValueError(f"Value must be between {self.min_value} "
-                             f"and {self.max_value}")
+        if not range(self.min_amount <= value <= self.max_amount):
+            raise ValueError(f"Value must be between {self.min_amount} "
+                             f"and {self.max_amount}")
         setattr(instance, self.protected_name, value)
 
 
