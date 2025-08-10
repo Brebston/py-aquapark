@@ -30,14 +30,19 @@ class IntegerRange:
                 ) -> None:
         if not isinstance(value, int):
             raise TypeError("Value must be an integer")
-        if not range(self.min_amount <= value <= self.max_amount):
+        if not (self.min_amount <= value <= self.max_amount):
             raise ValueError(f"Value must be between {self.min_amount} "
                              f"and {self.max_amount}")
         setattr(instance, self.protected_name, value)
 
 
 class Visitor:
-    def __init__(self, name: str, age: int, weight: int, height: int) -> None:
+    def __init__(self,
+                 name: str,
+                 age: int,
+                 weight: int,
+                 height: int
+                 ) -> None:
         self.name = name
         self.age = age
         self.weight = weight
